@@ -27,7 +27,7 @@ exports.handler = async function(event, context) {
   return {
     statusCode: 200,
     body: JSON.stringify({
-      reply: data.choices[0].message.content
+      reply: data.choices?.[0]?.message?.content || "Sorry, I couldn’t respond. Try again."
     })
   };
 };
