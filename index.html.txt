@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GaiaBerry Chat</title>
+</head>
+<body>
+
+<h2>GaiaBerry Chat</h2>
+
+<input id="input" placeholder="Type here..." />
+<button onclick="send()">Send</button>
+
+<div id="messages"></div>
+
+<script>
+async function send() {
+  const input = document.getElementById("input");
+  const msg = input.value;
+
+  document.getElementById("messages").innerHTML += "<p><b>You:</b> " + msg + "</p>";
+
+  const res = await fetch("/.netlify/functions/chat", {
+    method: "POST",
+    body: JSON.stringify({ message: msg })
+  });
+
+  const data = await res.json();
+
+  document.getElementById("messages").innerHTML += "<p><b>Gaia:</b> " + data.reply + "</p>";
+
+  input.value = "";
+}
+</script>
+
+</body>
+</html>
